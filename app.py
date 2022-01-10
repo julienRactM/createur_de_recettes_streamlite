@@ -31,7 +31,7 @@ params = dict(input_text=input_text,
 #prediction = response.json()
 
 #pred = prediction['prediction']
-pred= "This is the predicted recipee using " + input_text
+pred= "This is the predicted recipe using : " + input_text
 
 if st.button("Run"):
     st.write(pred)
