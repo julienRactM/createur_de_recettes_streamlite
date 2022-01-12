@@ -54,7 +54,7 @@ if st.button("Exécuter"):
         'ingredients': ingredients  # string
     }
     # pred = ingredients
-    response = requests.get(url, params=params).json()
+    response = requests.get(url, params=params).content.json()
     # print(response)
     pred = response['response']
 
