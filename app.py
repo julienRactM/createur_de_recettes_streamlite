@@ -47,9 +47,9 @@ pred= "This is the predicted recipe using : " + input_text
 
 
 if st.button("Run"):
-    ingredients = ":carotte:\n\n" + '\n'.join(
+    ingredients = "🥕\n\n" + '\n'.join(
         [ingredient.strip()
-         for ingredient in input_text.split(',')]) + "\n\n:note:\n\n"
+         for ingredient in input_text.split(',')]) + "\n\n📝\n\n"
     pred = ingredients
     st.write(pred)
 else:
