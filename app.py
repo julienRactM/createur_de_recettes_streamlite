@@ -1,7 +1,8 @@
 import streamlit as st
 from PIL import Image
+import requests
 
-
+url = "https://createur-de-recettes-vikteoeica-ew.a.run.app/predict"
 
 '''
 # Projet Createur de recette
@@ -17,9 +18,6 @@ st.image('./le_wagon.png',width=150)
 
 input_text = st.text_input('input text', value="carottes, boeuf, oignons")
 #button = st.button('Run')
-
-params = dict(input_text=input_text,
-              )
 
 #response = requests.get(url, params=params)
 
@@ -43,15 +41,25 @@ params = dict(input_text=input_text,
 # 📝
 
 # """)
-pred= "This is the predicted recipe using : " + input_text
+# pred= "Voici la recette prédite par le model : " + input_text
 
 
-if st.button("Run"):
+if st.button("Exécuter"):
     ingredients = "🥕\n\n" + '\n'.join(
         [ingredient.strip()
          for ingredient in input_text.split(',')]) + "\n\n📝\n\n"
-    pred = ingredients
-    st.write(pred)
+
+    # params = dict(input_text=ingredients)
+    params = {
+        'ingredients': ingredients  # string
+    }
+    # pred = ingredients
+    response = requests.get(url, params=params).json()
+    # print(response)
+    pred = response['response']
+
+    # st.write(pred)
+    st.text_area(pred)
 else:
     st.write("hello")
 
