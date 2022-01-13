@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 import requests
 import time
+import re
 
 url = "https://createur-de-recette-vikteoeica-ew.a.run.app/predict"
 '''
@@ -50,7 +51,15 @@ if st.button("Inventer une recette"):
             print(response.status_code)
             if response.status_code == 200:
                 # st.success('C\'est prêt !')
-                st.write(response.json()['response'])
+                response_result = re.sub("(\n{1}[0-9])",
+                                         r"\n\1",
+                                         string=response.json()['response'])
+                response_result = re.sub("\n\n\n",
+                                         "\n\n",
+                                         string=response_result)
+                st.write(response_result)
+
+                print(response_result)
                 # st.write(response.json()['response'])
                 # st.write(response.content)
                 break
@@ -69,6 +78,9 @@ st.markdown(
     .reportview-container .main {{
 
     }}
+    p{{
+        margin: 0px 0px 0.2rem;
+    }}
     .css-183lzff {{
 
         word-break: break-all;
@@ -86,6 +98,7 @@ st.markdown(
     .css-1v0mbdj img{{
         padding: 30px 0
     }}
+
 </style>
 """,
     unsafe_allow_html=True,
