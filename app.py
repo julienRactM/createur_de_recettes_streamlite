@@ -1,53 +1,60 @@
 import streamlit as st
 from PIL import Image
 import requests
-
+import time
 
 url = "https://createur-de-recette-vikteoeica-ew.a.run.app/predict"
 '''
-# Projet Createur de recette
+# Projet Créateur de recettes
 
 
 
 '''
 #above in ''' ''' Createur de recette [createur de recette API](https://tblablabla.fr)
-COLOR = "#2F4F4F"
-BACKGROUND_COLOR = "#D3D3D3"
+# COLOR = "#2F4F4F"
+# BACKGROUND_COLOR = "#D3D3D3"
 # fonts Lucida Calligraphy cursive Brush Script MT
 FONTFAMILY = "Lucida Calligraphy"
 #img = Image.open("le_wagon.png")
 #st.image(img, caption=None,width=150)
-st.image('./le_wagon.png',width=150)
+st.image('./logo_marmIAton_gris.png', width=550)
 
 
 input_text = st.text_input(
-    'input text',
-    value="carottes, boeuf, oignons, 2 cuillères de sel, 4 patates")
+    'Choisissez vos ingrédients : ',
+    value=
+    "200g de chocolat noir, 150g de beurre, 150g de sucre en poudre, 50g de farine, 3 œufs"
+)
+# possible values carottes, boeuf, oignons, 2 cuillères de sel, 4 patates
 
 # pred= "Voici la recette prédite par le model : " + input_text
 
+# st.balloons()
+if st.button("Inventer une recette"):
+    # with st.spinner('En cours de préparation...'):
+    #     time.sleep(100)
 
-if st.button("Exécuter"):
+    ingredients = "🥕\n\n" + '\n'.join(
+        [ingredient.strip()
+        for ingredient in input_text.split(',')]) + "\n\n📝\n\n"
+
+
+    # params = dict(input_text=ingredients)
+    params = {
+        'ingredients': ingredients  # string
+    }
+    # pred = ingredients
     while True:
-        ingredients = "🥕\n\n" + '\n'.join(
-            [ingredient.strip()
-            for ingredient in input_text.split(',')]) + "\n\n📝\n\n"
+        with st.spinner('En cours de préparation...'):
+            response = requests.get(url, params=params) #.content.json())
+            print(response.status_code)
+            if response.status_code == 200:
+                # st.success('C\'est prêt !')
+                st.write(response.json()['response'])
+                # st.write(response.json()['response'])
+                # st.write(response.content)
+                break
 
-
-        # params = dict(input_text=ingredients)
-        params = {
-            'ingredients': ingredients  # string
-        }
-        # pred = ingredients
-        response = requests.get(url, params=params) #.content.json())
-        if response.status_code == 200:
-            st.text(response.json()['response'])
-            # st.write(response.json()['response'])
-            # st.write(response.content)
-            break
-        else :
-            st.write("Nous avons rencontrer une erreur")
-            st.write(response.status_code)
 
 else:
     st.write("En attente d'ingrédients")
@@ -60,23 +67,32 @@ st.markdown(
         max-width: 90%;
     }}
     .reportview-container .main {{
-        background-color: {BACKGROUND_COLOR};
+
     }}
     .css-183lzff {{
-        width: 90%;
+
         word-break: break-all;
         word-wrap: break-word;
          font-size:18px;
          font-weight:500;
          font-family:{FONTFAMILY};
     }}
+    .block-container{{
+        padding: 60px 0;
+    }}
+    .css-1j15ncu{{
+        visibility: hidden;
+    }}
+    .css-1v0mbdj img{{
+        padding: 30px 0
+    }}
 </style>
 """,
     unsafe_allow_html=True,
 )
 
-
-
+# in 183       width: 90%;
+# above in main background-color: {BACKGROUND_COLOR};
 # above in st.markdown :color: {COLOR}; overflow-x: hidden; text-overflow: ellipsis; word-wrap: break-word;
 
 
