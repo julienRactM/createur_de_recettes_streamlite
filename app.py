@@ -28,9 +28,12 @@ with col1:
 with col2:
     st.image('./logo_marmIAton_gris.png')
 
-    input_text = st.text_input(
+    input_text = st.text_area(
         'Choisissez vos ingrédients : ',
-        value= "200g de chocolat noir, 150g de beurre, 150g de sucre en poudre, 50g de farine"
+        value= """200g de chocolat
+150g de beurre
+150g de sucre
+50g de farine"""
     )
     # possible values carottes, boeuf, oignons, 2 cuillères de sel, 4 patates
 
@@ -44,6 +47,7 @@ with col2:
         ingredients = "🥕\n\n" + '\n'.join(
             [ingredient.strip()
             for ingredient in input_text.split(',')]) + "\n\n📝\n\n"
+        print(ingredients)
 
         # params = dict(input_text=ingredients)
         params = {
@@ -52,12 +56,6 @@ with col2:
         # pred = ingredients
         while True:
             with st.spinner('En cours de préparation...'):
-                audio_file = open('Eau.wav', 'rb')
-                audio_bytes = audio_file.read()
-                st.audio(audio_bytes,
-                         format='audio/wav',
-                         start_time=1)
-
                 response = requests.get(url, params=params)  #.content.json())
                 print(response.status_code)
                 if response.status_code == 200:
@@ -68,39 +66,12 @@ with col2:
                     response_result = re.sub("\n\n\n",
                                             "\n\n",
                                             string=response_result)
-                    st.write(response_result)
+                    st.write(response_result.split('📝')[1])
 
-                    print(response_result)
-                    # st.write(response.json()['response'])
-                    # st.write(response.content)
+                    # print(response_result)
+                    print('success')
                     break
 
-
-    else:
-        ingredients = """🥕
-
-200g de chocolat noir
-
-150g de beurre
-
-150g de sucre en poudre
-
-50g de farine
-
-
-📝
-
-
-"""
-        instructions = """Faire fondre le chocolat au bain marie et le laisser refroidir.
-
-Ajouter le beurre ramolli, puis le sucre et le sel. Mélanger le tout.
-
-Verser la pâte dans un moule à cake beurré et fariné.
-
-Enfourner pendant 30 min (selon le goût).
-"""
-        st.write(ingredients+instructions)
 
 with col3:
     st.write(" ")
@@ -120,6 +91,7 @@ st.markdown(
     h1{{font-size:30px}}
     p{{
         margin: 0px 0px 0.2rem;
+        font-size:1.4rem
     }}
     .css-183lzff {{
 
@@ -130,7 +102,7 @@ st.markdown(
          font-family:{FONTFAMILY};
     }}
     .block-container{{
-        padding: 60px 0;
+        padding: 40px 0 60px;
     }}
     .css-1j15ncu{{
         visibility: hidden;
@@ -142,6 +114,15 @@ st.markdown(
         margin-right: auto;
         width: 66%;
     }}
+    textarea.st-bc{{
+        min-height: 172px;
+        width : 61vw;
+        font-size:1.4rem
+    }}
+    div.stTextArea label{{font-size : 1.4rem}}
+    div.css-2s9nqs{{max-width:61vw}}
+    .stTextArea{{max-width:61vw}}
+
 
 </style>
 """,
