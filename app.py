@@ -19,7 +19,7 @@ FONTFAMILY = "Lucida Calligraphy"
 #st.image(img, caption=None,width=150)
 
 
-col1, col2, col3 = st.columns([1,6,1])
+col1, col2, col3 = st.columns([1,6,0.4])
 # button_col1, button_col2, button_col3 = st.columns([1, 6, 1])
 
 with col1:
@@ -30,10 +30,7 @@ with col2:
 
     input_text = st.text_area(
         'Choisissez vos ingrédients : ',
-        value= """200g de chocolat
-150g de beurre
-150g de sucre
-50g de farine"""
+        placeholder= """..."""
     )
     # possible values carottes, boeuf, oignons, 2 cuillères de sel, 4 patates
 
@@ -110,25 +107,30 @@ st.markdown(
     img{{
         align-content: center;
         display: block;
-        margin-left: auto;
+        margin-left: 10.5%;
         margin-right: auto;
         width: 66%;
     }}
     textarea.st-bc{{
         min-height: 172px;
-        width : 61vw;
+
         font-size:1.4rem
     }}
     div.stTextArea label{{font-size : 1.4rem}}
     div.css-2s9nqs{{max-width:61vw}}
     .stTextArea{{max-width:61vw}}
+    .stSpinner p{{
+        margin-bottom:0.8rem
+
+    }}
 
 
 </style>
 """,
     unsafe_allow_html=True,
 )
-
+#
+#textarea st width : 61vw;
 # in 183       width: 90%;
 # above in main background-color: {BACKGROUND_COLOR};
 # above in st.markdown :color: {COLOR}; overflow-x: hidden; text-overflow: ellipsis; word-wrap: break-word;
