@@ -40,12 +40,10 @@ with col2:
     if st.button("Générer une recette"):
         # with st.spinner('En cours de préparation...'):
         #     time.sleep(100)
-
         ingredients = "🥕\n\n" + '\n'.join(
-            [ingredient.strip()
-            for ingredient in input_text.split(',')]) + "\n\n📝\n\n"
+            [ingredient.strip()+'\n'
+            for ingredient in input_text.split('\n')]) + "\n\n📝\n\n"
         print(ingredients)
-
         # params = dict(input_text=ingredients)
         params = {
             'ingredients': ingredients  # string
