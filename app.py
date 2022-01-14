@@ -41,9 +41,11 @@ with col2:
         # with st.spinner('En cours de préparation...'):
         #     time.sleep(100)
         ingredients = "🥕\n\n" + '\n'.join(
-            [ingredient.strip()+'\n'
+            [ingredient.strip()
             for ingredient in input_text.split('\n')]) + "\n\n📝\n\n"
         print(ingredients)
+        st.write(ingredients)
+
         # params = dict(input_text=ingredients)
         params = {
             'ingredients': ingredients  # string
